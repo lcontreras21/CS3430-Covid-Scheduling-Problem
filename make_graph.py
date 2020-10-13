@@ -21,6 +21,6 @@ def add_to_graph(to_add, graph):
 def remove_from_graph(to_remove, graph):
     for person in graph:
         for course in graph[person]:
-            if course.number in to_remove:  # remove is assumed to be a set of course numbers
+            if course.number in to_remove:  # to_remove is assumed to be a set of course numbers
                 del graph[person][course.number]
     return graph
