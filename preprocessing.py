@@ -6,7 +6,7 @@ Changes as of 10/11/2020
 from models import *
 import csv
 
-schedule_file = "covid_example_files\demo_schedule_input.txt"	# Can be changed later
+schedule_file = "covid_example_files/demo_schedule_input.txt"	# Can be changed later
 
 def read_in_csv():
     '''
@@ -27,8 +27,10 @@ def read_in_csv():
                         classes[row[0]].add_student(new_student)
                 classes[row[0]].day = "Monday"              # Set placeholder day. Need to read in constraints file to figure out day of week
 
-    our_graph.add_to_graph(classes)
-    return our_graph
+    return classes
+    #our_graph.add_to_graph(classes)
+    #return our_graph
+
 			
 			
 if __name__ == "__main__":

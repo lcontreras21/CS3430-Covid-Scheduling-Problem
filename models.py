@@ -10,8 +10,8 @@ class person:
             self.status = status 	# to distinguish teachers/students
             self.neighbors = []
             self.number = s
-	    self.infection_length = 0
-		
+	    #self.infection_length = 0
+	
 	def add_class(self, class_no):
 		self.classes += [class_no]
 		

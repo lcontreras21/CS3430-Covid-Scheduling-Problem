@@ -1,6 +1,7 @@
 #header 
 
 import math
+import alg2
 
 def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len, acceptable_threshold): 
 
@@ -11,7 +12,7 @@ def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len,
     size = margin
     
     while margin >= 1:
-        infection_number = model_infected(in_person, contagion_prob, infection_len, semester_len)
+        infection_number = alg2.model_infected(in_person, contagion_prob, infection_len, semester_len)
         margin = math.ceil(margin/2)
         if infection_number < acceptable_threshold:
             graph.add_to_graph(in_person, sorted_classes[size:size+margin])
