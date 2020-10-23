@@ -9,7 +9,7 @@ class person:
             self.classes = []
             self.status = status 	# to distinguish teachers/students
             self.neighbors = []
-            self.number = s
+            self.number = int(s)
 	    #self.infection_length = 0
 	
 	def add_class(self, class_no):
@@ -22,7 +22,7 @@ class Course:
 	def __init__(self, number):
             self.number = number
             self.students = []
-            self.day = ""
+            self.day = []
 	
 	def add_student(self, s):
 		self.students += [s]
@@ -41,9 +41,9 @@ class graph:
     def __init__(self):
         self.graph = {}
 
-    def add_to_graph(self, list_of_classes):
-        for course in list_of_classes.keys():
-            course = list_of_classes[course]
+    def add_to_graph(self, dict_of_classes, list_to_add):
+        for course in list_to_add:
+            course = dict_of_classes[course]
             course_number = course.number
             people = course.students
             day = course.day

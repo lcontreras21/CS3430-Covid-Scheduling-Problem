@@ -25,7 +25,7 @@ def read_in_csv():
                 for s in student_list:
                         new_student = person("student", s)
                         classes[row[0]].add_student(new_student)
-                classes[row[0]].day = "Monday"              # Set placeholder day. Need to read in constraints file to figure out day of week
+                classes[row[0]].day.append("Monday")              # Set placeholder day. Need to read in constraints file to figure out day of week
 
     return classes
     #our_graph.add_to_graph(classes)
