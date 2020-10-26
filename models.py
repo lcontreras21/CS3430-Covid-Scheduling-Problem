@@ -9,7 +9,7 @@ class person:
             self.classes = []
             self.status = status 	# to distinguish teachers/students
             self.neighbors = []
-            self.number = int(s)
+            self.number = s
 	    #self.infection_length = 0
 	
 	def add_class(self, class_no):
@@ -24,7 +24,7 @@ class Course:
             self.students = []
             self.day = []
 	
-	def add_student(self, s):
+	def add_person(self, s):
 		self.students += [s]
 		
 	def __lt__(self, other):
