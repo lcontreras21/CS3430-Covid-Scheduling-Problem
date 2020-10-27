@@ -5,18 +5,21 @@ Changes as of 10/11/2020
 '''
 
 class person:
-	def __init__(self, status, s):
-            self.classes = []
-            self.status = status 	# to distinguish teachers/students
-            self.neighbors = []
-            self.number = s
-	    #self.infection_length = 0
-	
-	def add_class(self, class_no):
-		self.classes += [class_no]
-		
-	def __str__(self):
-		return self.status + " " + self.number
+    def __init__(self, status, s):
+        self.classes = []
+        self.status = status 	# to distinguish teachers/students
+        self.neighbors = []
+        self.number = s
+        #self.infection_length = 0
+
+    def add_class(self, class_no):
+        self.classes += [class_no]
+
+    def __repr__(self):
+        return self.number
+        
+    def __str__(self):
+        return self.status + " " + self.number
 		
 class Course:
 	def __init__(self, number):

@@ -49,6 +49,7 @@ def read_in_csv():
     #students, teachers = {}, {}
     constraints = read_in_constraints()     # Store the class days in a dictionary with key as course number and value the list of classes
     classes = {}
+    people = {}
     with open(schedule_file) as csv_file:
         file_reader = csv.reader(csv_file, delimiter="\t")
         csv_file.readline()                 # Readline here to skip headers in csv file
@@ -58,13 +59,13 @@ def read_in_csv():
                 # Adding students to classes object
                 student_list = row[4].split(" ")
                 for s in student_list:
+                ### Student handling is not done properly.
                         new_person = person("student", "S" + s)
                         classes[row[0]].add_person(new_person)
                 classes[row[0]].day = constraints[row[0]]   # assigning course dates to object field
                 # Adding the professor
                 new_person = person("Teacher", "T" + row[2])
                 classes[row[0]].add_person(new_person)
-                print(classes[row[0]].students)
     return classes
 			
 if __name__ == "__main__":
