@@ -25,11 +25,17 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
     while time < semester_len:
         for infected_person in infected_people:
             weekday = day_dict[time % 7]
-            for course in infected_people[infected_person].items():     # for all courses said infected person is in
-                if time in course[1][0]:
+            for course in infected_people[infected_person]:     # for all courses said infected person is in
+                print(course.days)
+                if weekday in course.days:
+                    print(course)
+                    print('here')
                     for person in course.students:
+                        print(course.students)
+                        print('here1')
                         if person not in recovered_list:
                             if person not in infected_people:
+                                print('here2')
                                 prob = random.random()
                                 if prob <= contagion_prob:
                                     infected_people[person] = in_person.graph[person]
@@ -54,7 +60,7 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             # dictionary
 
         to_remove.clear()   # and remove all of those from the set to be removed as well!
-
+    print(infected_total)
     return infected_total
 
 

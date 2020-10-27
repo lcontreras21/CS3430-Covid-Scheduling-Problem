@@ -62,7 +62,7 @@ def read_in_csv():
                 ### Student handling is not done properly.
                         new_person = person("student", "S" + s)
                         classes[row[0]].add_person(new_person)
-                classes[row[0]].day = constraints[row[0]]   # assigning course dates to object field
+                classes[row[0]].days = constraints[row[0]]   # assigning course dates to object field
                 # Adding the professor
                 new_person = person("Teacher", "T" + row[2])
                 classes[row[0]].add_person(new_person)
