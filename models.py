@@ -22,19 +22,22 @@ class person:
         return self.status + " " + self.number
 		
 class Course:
-	def __init__(self, number):
-            self.number = number
-            self.students = []
-            self.days = []
+    def __init__(self, number):
+        self.number = number
+        self.students = []
+        self.days = []
 	
-	def add_person(self, s):
-		self.students += [s]
+    def add_person(self, s):
+        self.students += [s]
 		
-	def __lt__(self, other):
-		return len(self.students) < len(other.students)
+    def __lt__(self, other):
+        return len(self.students) < len(other.students)
 	
-	def __str__(self):
-		return str(self.students)
+    def __str__(self):
+        return str(self.students)
+
+    def __repr__(self):
+        return 'C'+self.number
 
 class graph:
     # Things to note:
@@ -47,13 +50,9 @@ class graph:
     def add_to_graph(self, dict_of_classes, list_to_add):
         for course in list_to_add:
             course = dict_of_classes[course]
-            course_number = course.number
-            people = course.students
-            day = course.day
             for person in course.students:  # assume professor in students list
                 if person.number not in self.graph.keys():
                     self.graph[person.number] = [course]
-                    #self.graph[person.number] = {course_number: (day, people)}
                 else:
                     self.graph[person.number].append(course)
     
@@ -61,7 +60,7 @@ class graph:
         for person in self.graph:
             for course in self.graph[person]:
                 if course.number in courses_to_remove:  # to_remove is assumed to be a set of course numbers
-                    self.graph[person].pop(course)
+                    self.graph[person].remove(course)
     
     def __str__(self):
         return str(self.graph.keys())

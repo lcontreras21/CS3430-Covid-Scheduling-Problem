@@ -24,12 +24,10 @@ def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len,
             margin = math.ceil(margin/2)
         if infection_number < acceptable_threshold:
             models.graph.add_to_graph(in_person, dict_of_classes, sorted_classes[size:size + margin])
-            print("add half")
             size = size+margin
         elif infection_number > acceptable_threshold:
             models.graph.remove_from_graph(in_person, sorted_classes[size - margin:size])
             size = size-margin
-            print("remove half")
         else: 
             break
     

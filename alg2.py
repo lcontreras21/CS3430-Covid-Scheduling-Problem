@@ -23,34 +23,29 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
     day_dict = {1: "M", 2: "T", 3: "W", 4: "Th", 5: "F"}
 
     while time < semester_len:
+        infected_to_add = {}
         for infected_person in infected_people:
             weekday = day_dict[time % 7]
             for course in infected_people[infected_person]:     # for all courses said infected person is in
-                print(course.days)
                 if weekday in course.days:
-                    print(course)
-                    print('here')
                     for person in course.students:
-                        print(course.students)
-                        print('here1')
-                        if person not in recovered_list:
-                            if person not in infected_people:
-                                print('here2')
-                                prob = random.random()
-                                if prob <= contagion_prob:
-                                    infected_people[person] = in_person.graph[person]
-                                    infection_info[person] = 0
-                                    infected_total += 1
+                        if person.number not in recovered_list and person.number not in infected_people and person not in infected_to_add.keys():
+                            prob = random.random()
+                            if prob <= contagion_prob:
+                                infected_to_add[person] = in_person.graph[person.number]
+                                infection_info[person] = 0
+                                infected_total += 1
             if infection_info[infected_person] >= infection_len:
                 to_remove.add(infected_person)  # can't change the size of the dictionary while iterating through it
                 recovered_list.add(infected_person)
-            if weekday == "Friday":     # change each student's infection length as appropriate
+            if weekday == "F":     # change each student's infection length as appropriate
                 infection_info[infected_person] += 3
             else:
                 infection_info[infected_person] += 1
-
+        infected_people.update(infected_to_add)
+        
         # change the time once per iteration of the while loop!
-        if weekday == "Friday":
+        if weekday == "F":
             time += 3
         else:
             time += 1
@@ -60,7 +55,6 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             # dictionary
 
         to_remove.clear()   # and remove all of those from the set to be removed as well!
-    print(infected_total)
     return infected_total
 
 
