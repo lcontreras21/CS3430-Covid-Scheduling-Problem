@@ -29,7 +29,7 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             for course in infected_people[infected_person]:     # for all courses said infected person is in
                 if weekday in course.days:
                     for person in course.students:
-                        if person.number not in recovered_list and person.number not in infected_people and person not in infected_to_add.keys():
+                        if (person not in recovered_list) and (person.number not in infected_people) and (person not in infected_to_add):
                             prob = random.random()
                             if prob <= contagion_prob:
                                 infected_to_add[person] = in_person.graph[person.number]
