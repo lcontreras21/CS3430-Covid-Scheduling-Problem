@@ -55,6 +55,7 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             # dictionary
 
         to_remove.clear()   # and remove all of those from the set to be removed as well!
+    print("infected: ", infected_total)
     return infected_total
 
 
