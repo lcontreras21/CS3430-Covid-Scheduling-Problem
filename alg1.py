@@ -3,10 +3,11 @@
 import math
 import models
 from alg2 import *
-from graph import plot
+# from graph import plot
 
 
-def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len, acceptable_threshold): 
+def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len, acceptable_threshold,
+                   y_n_reinfect = False, how_many_infected = 1, y_n_varied_inf_len = False):
 
     sorted_classes = sorted(dict_of_classes)
     margin = math.ceil(len(dict_of_classes)/2)
@@ -16,7 +17,8 @@ def find_in_person(dict_of_classes, contagion_prob, infection_len, semester_len,
     last_time = False
     counter = 0
     while margin >= 1:
-        infection_number, graph_data = model_infected(in_person, contagion_prob, infection_len, semester_len)
+        infection_number, graph_data = model_infected(in_person, contagion_prob, infection_len, semester_len,
+                                                      y_n_reinfect, how_many_infected, y_n_varied_inf_len)
         margin = math.ceil(margin/2)
         if infection_number == acceptable_threshold:
             break
