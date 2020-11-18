@@ -19,13 +19,19 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
 
     time = 1
     infected_total = 1
+    recovered_total = 0
+    total_people = len(people_list)
+    # Used to build graphs for infected, recovered
+    infected_over_semester = [0] * semester_len 
+    recovered_over_semester = [0]  * semester_len 
+    susceptible_over_semester = [0] * semester_len
 
     day_dict = {1: "M", 2: "T", 3: "W", 4: "Th", 5: "F"}
 
     while time < semester_len:
         infected_to_add = {}
+        weekday = day_dict[time % 7]
         for infected_person in infected_people:
-            weekday = day_dict[time % 7]
             for course in infected_people[infected_person]:     # for all courses said infected person is in
                 if weekday in course.days:
                     for person in course.students:
@@ -38,14 +44,27 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             if infection_info[infected_person] >= infection_len:
                 to_remove.add(infected_person)  # can't change the size of the dictionary while iterating through it
                 recovered_list.add(infected_person)
+                recovered_total += 1
             if weekday == "F":     # change each student's infection length as appropriate
                 infection_info[infected_person] += 3
             else:
                 infection_info[infected_person] += 1
         infected_people.update(infected_to_add)
         
+        # Handle graph and plotting stuff here 
+        infected_over_semester[time-1] = infected_total
+        recovered_over_semester[time-1] = recovered_total
+        susceptible_over_semester[time-1] = total_people - infected_total
         # change the time once per iteration of the while loop!
         if weekday == "F":
+            if  time <= semester_len:
+                infected_over_semester[time] = infected_total
+                recovered_over_semester[time] = recovered_total
+                susceptible_over_semester[time] = total_people - infected_total
+            if time + 1 <= semester_len:
+                infected_over_semester[time + 1] = infected_total
+                recovered_over_semester[time + 1] = recovered_total
+                susceptible_over_semester[time + 1] = total_people - infected_total
             time += 3
         else:
             time += 1
@@ -55,7 +74,7 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len):
             # dictionary
 
         to_remove.clear()   # and remove all of those from the set to be removed as well!
-    print("infected: ", infected_total)
-    return infected_total
-
-
+        
+    
+    graph_data = [infected_over_semester, recovered_over_semester, susceptible_over_semester]
+    return infected_total, graph_data
