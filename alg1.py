@@ -1,29 +1,30 @@
 #header 
 
 import math
-import models
+from models import Course, graph
 from alg2 import *
 # from graph import plot
 
 
-def find_in_person(dict_of_classes, num_students, contagion_prob, infection_len, semester_len, acceptable_threshold,
+def find_in_person(dict_of_classes, list_of_students, contagion_prob, infection_len, semester_len, acceptable_threshold,
                    y_n_reinfect = False, how_many_infected = 1, y_n_varied_inf_len = False):
 
     sorted_classes = sorted(dict_of_classes)
+    #print(type(sorted_classes))
     margin = math.ceil(len(dict_of_classes)/2)
-    in_person = models.graph()
+    in_person = graph()
     in_person.add_to_graph(dict_of_classes, sorted_classes[0:margin])
 
-    list_of_students = []
-    for i in range(num_students):
-        student_num = i + 1
-        list_of_students.append("S" + str(student_num))
-
     # add students to parties (right now one party) and decide how many and their composition
-    a_party = random.sample(list_of_students, k=7)
+    a_party = random.sample(list_of_students, k=int(len(list_of_students)*.15))      # add a reason for percentage of population?
+
 
     # make parties courses that meet ~once~
-    # models.Course()
+    my_course = Course(1000000)     # we assume there are less than 1m courses
+    my_course.set_people(a_party)
+    my_course.days = ['S']
+
+
 
     # add students to housing pods and make these courses that meet daily?
     pods = []

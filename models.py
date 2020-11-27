@@ -17,6 +17,12 @@ class person:
 
     def __repr__(self):
         return self.number
+
+    def __eq__(self, other):
+        return self.number == other.number
+
+    def __hash__(self):
+        return hash(self.number)
         
     def __str__(self):
         return self.status + " " + self.number
@@ -29,6 +35,9 @@ class Course:
 	
     def add_person(self, s):
         self.students += [s]
+
+    def set_people(self, s):
+        self.students = s
 		
     def __lt__(self, other):
         return len(self.students) < len(other.students)
