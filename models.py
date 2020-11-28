@@ -60,10 +60,10 @@ class graph:
         for course in list_to_add:
             course = dict_of_classes[course]
             for person in course.students:  # assume professor in students list
-                if person.number not in self.graph.keys():
-                    self.graph[person.number] = [course]
+                if person not in self.graph.keys():
+                    self.graph[person] = [course]
                 else:
-                    self.graph[person.number].append(course)
+                    self.graph[person].append(course)
     
     def remove_from_graph(self, courses_to_remove):
         for person in self.graph:

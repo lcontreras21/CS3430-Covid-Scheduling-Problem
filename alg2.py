@@ -45,18 +45,18 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len, reinf
                 if weekday in course.days:
                     for person in course.students:
                         if reinfect == False:
-                            if (person not in recovered_list) and (person.number not in infected_people) and (person not in infected_to_add):
+                            if (person not in recovered_list) and (person not in infected_people) and (person not in infected_to_add):
                                 prob = random.random()
                                 if prob <= contagion_prob:
-                                    infected_to_add[person] = in_person.graph[person.number]
+                                    infected_to_add[person] = in_person.graph[person]
                                     infection_info[person] = 0
                                     infected_total += 1
                         else:   # otherwise people can become reinfected having contracted the virus
-                            if (person.number not in infected_people) and (person not in infected_to_add):
+                            if (person not in infected_people) and (person not in infected_to_add):
                                 # reduce probability of infection if previously infected?
                                 prob = random.random()
                                 if prob <= contagion_prob:
-                                    infected_to_add[person] = in_person.graph[person.number]
+                                    infected_to_add[person] = in_person.graph[person]
                                     infection_info[person] = 0
                                     infected_total += 1     # NOTE: if someone is reinfected, they are counted again in the infected total
             if varied_inf_len == False:
