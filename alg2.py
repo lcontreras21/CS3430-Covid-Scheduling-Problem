@@ -43,6 +43,8 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len, reinf
         for infected_person in infected_people:
             for course in infected_people[infected_person]:     # for all courses said infected person is in
                 if weekday in course.days:
+                    if course.number == 1000000 and not random.random() > .6:
+                        continue
                     for person in course.students:
                         if reinfect == False:
                             if (person not in recovered_list) and (person not in infected_people) and (person not in infected_to_add):

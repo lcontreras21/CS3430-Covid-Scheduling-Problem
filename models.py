@@ -70,6 +70,13 @@ class graph:
             for course in self.graph[person]:
                 if course.number in courses_to_remove:  # to_remove is assumed to be a set of course numbers
                     self.graph[person].remove(course)
+
+    def add_special_course(self, party_course):
+        for person in party_course.students:
+            if person not in self.graph.keys():
+                self.graph[person] = [party_course]
+            else:
+                self.graph[person].append(party_course)
     
     def __str__(self):
         return str(self.graph.keys())

@@ -3,11 +3,12 @@
 import math
 from models import Course, graph
 from alg2 import *
-# from graph import plot
+from graph import plot
 
 
 def find_in_person(dict_of_classes, list_of_students, contagion_prob, infection_len, semester_len, acceptable_threshold,
-                   y_n_reinfect = False, how_many_infected = 1, y_n_varied_inf_len = False):
+                   y_n_reinfect = False, how_many_infected = 1, y_n_varied_inf_len = False, y_n_party = False,
+                   y_n_pods = False):
 
     sorted_classes = sorted(dict_of_classes)
     #print(type(sorted_classes))
@@ -15,22 +16,33 @@ def find_in_person(dict_of_classes, list_of_students, contagion_prob, infection_
     in_person = graph()
     in_person.add_to_graph(dict_of_classes, sorted_classes[0:margin])
 
-    # add students to parties (right now one party) and decide how many and their composition
-    a_party = random.sample(list_of_students, k=int(len(list_of_students)*.15))      # add a reason for percentage of population?
+    if y_n_party:   # if we're considering the parties extension
+        # add students to parties (right now one party) and decide how many and their composition
+        a_party = random.sample(list_of_students, k=int(len(list_of_students)*.15))      # add a reason for percentage of population?
 
 
-    # make parties courses that meet ~once~
-    my_course = Course(1000000)     # we assume there are less than 1m courses
-    my_course.set_people(a_party)
-    my_course.days = ['S']
+        # make parties courses that meet ~once~
+        party_course = Course(1000000)     # we assume there are less than 1m courses
+        party_course.set_people(a_party)
+        party_course.days = ['F']
+
+        # add party course to graph
+        in_person.add_special_course(party_course)   # verify party has been added!
 
 
+    if y_n_pods:    # if we're considering the pods extension
+        # add students to housing pods and make these courses that meet daily?
+        pods = []
+        for i in range(0, len(list_of_students), 5):    # arbitrarily, there are 5 students in a housing group
+            # general idea from https://stackoverflow.com/a/312464
+            pods.append(list_of_students[i:i+5])
 
-    # add students to housing pods and make these courses that meet daily?
-    pods = []
-    for i in range(0, len(list_of_students), 5):    # arbitrarily, there are 5 students in a housing group
-        # general idea from https://stackoverflow.com/a/312464
-        pods.append(list_of_students[i:i+5])
+        for i in range(0, len(pods)):
+            pod_course = Course(1000000 + i + 1)
+            pod_course.set_people(pods[i])
+            pod_course.days = ['M', 'T', 'W', 'TH', 'F', 'S', 'SU']
+            in_person.add_special_course(pod_course)
+
 
 
 
@@ -70,7 +82,7 @@ def find_in_person(dict_of_classes, list_of_students, contagion_prob, infection_
     print(f"Best Case Student Seats Value: {num_seats_total - num_teacher_seats}")
 
     # Handle graphing here
-    # plot(graph_data)
+    plot(graph_data)
 
     print("In-person classes: ",sorted_classes[0:size])
     return sorted_classes[0:size]
