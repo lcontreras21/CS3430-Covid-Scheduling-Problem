@@ -20,7 +20,7 @@ def plot(graph_data):
     ax.plot(time, susceptible_over_time, label="susceptible", color="b")
 
     ax.legend()
-    ax.set_title("Susceptible/Infected/Recovered over time")
+    ax.set_title("Susceptible/Infected/Recovered Over Time")
     ax.set_ylabel("Total (people)")
     ax.set_xlabel("Time (days)")
     plt.show()

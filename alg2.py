@@ -1,7 +1,7 @@
 #header 
 
 import random
-
+from math import floor
 
 def model_infected(in_person, contagion_prob, infection_len, semester_len, reinfect, k_many_infected, varied_inf_len):
     infected_people = {}
@@ -68,7 +68,7 @@ def model_infected(in_person, contagion_prob, infection_len, semester_len, reinf
                     recovered_total += 1
             else:   # otherwise we want to vary the infection length, so we random choose when an infection ends
                 # (to keep things simple)
-                random_inf_len = random.randint(infection_len/5, infection_len)
+                random_inf_len = random.randint(floor(infection_len/5), infection_len)
                 if infection_info[infected_person] >= random_inf_len:
                     to_remove.add(infected_person)
                     recovered_list.add(infected_person)
